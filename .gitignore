@@ -1,5 +1,7 @@
-# exclude compiled files in __pycache__
+# exclude compiled files in __pycache__ and .pyc files
 **/__pycache__/
+*.pyc
 *.swp
 file.json
 template.html
+venv/
