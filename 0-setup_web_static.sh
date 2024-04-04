@@ -17,13 +17,19 @@ else
     echo "NGINX already installed"
 fi
 
-test_dir="/data/web_static/releases/test/"
-# check if directory exists otherwise create
-if [ ! -d "$1" ]; then
-    mkdir -p "$test_dir"
-else
-    echo "Directory '$1' already exists"
-fi
+# files to check existence otherwise create
+dirs=(
+    "/data/web_static/shared/"
+    "/data/web_static/releases/test/"
+)
+
+for dir in "${dirs[@]}"; do
+    if [ ! -d "$dir" ]; then
+        mkdir -p "$dir"
+    else
+        echo "Directory '$dir' already exists"
+    fi
+done
 
 # put simple text into index.html for testing
 echo "\
@@ -48,6 +54,6 @@ echo "symbolic link created"
 # give recursive ownership of /data/ to ubuntu and group
 chown -hR ubuntu:ubuntu /data/
 
-sudo sed -i '13i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
 
 service nginx restart
