@@ -42,12 +42,12 @@ linked_dir="/data/web_static/releases/test/"
 if [ -d "$sym_link" ]; then
     rm -rf "$sym_link"
 fi
-ln -s "$linked_dir" "$sym_link"
+ln -sf "$linked_dir" "$sym_link"
 echo "symbolic link created"
 
 # give recursive ownership of /data/ to ubuntu and group
-chown -R ubuntu:ubuntu /data/
+chown -hR ubuntu:ubuntu /data/
 
-sudo sed -i '/server_name _;/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
+sudo sed -i '13i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
 
 service nginx restart
