@@ -48,6 +48,6 @@ echo "symbolic link created"
 # give recursive ownership of /data/ to ubuntu and group
 chown -R ubuntu:ubuntu /data/
 
-sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
+sudo sed -i '/server_name _;/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-available/default
 
 service nginx restart
