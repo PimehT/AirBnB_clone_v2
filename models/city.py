@@ -18,6 +18,6 @@ class City(BaseModel, Base):
     )
     places = relationship(
         "Place",
-        backref='cities',
+        backref='city',
         cascade="all, delete, delete-orphan"
     )
