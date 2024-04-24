@@ -64,12 +64,12 @@ class DBStorage:
     def reload(self):
         """Create all tables in the database"""
         Base.metadata.create_all(self.__engine)
-        self.__session = sessionmaker(
+        session_factory = sessionmaker(
             bind=self.__engine,
             expire_on_commit=False
         )
-        NEWSession = scoped_session(self.__session)
-        self.__session = NEWSession()
+        Session = scoped_session(session_factory)
+        self.__session = Session
 
     def close(self):
         """ Calls the remove function in db """
