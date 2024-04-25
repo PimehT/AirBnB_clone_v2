@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+""" starts a flask web application
+and shows cities by states"""
 from flask import Flask, render_template
 from models import *
 from models import storage
