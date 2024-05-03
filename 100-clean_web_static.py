@@ -14,8 +14,8 @@ def do_clean(number=0):
     else:
         number = int(number)
 
-    local("ls -ltr versions | tail -n +{} | awk '{{print $9}}' \
-| xargs -I {{}} rm versions/{{}}".format(number + 1))
+    local("ls -ltr versions | tail -n +{} | awk '{{print $9}}' | \
+          xargs -I {{}} rm versions/{{}}".format(number + 1))
 
-    run("ls -ltr /data/web_static/releases | tail -n +{} | awk '{{print $9}}' \
-| xargs -I {{}} rm -rf /data/web_static/releases/{{}}".format(number + 1))
+    run("ls -ltr /data/web_static/releases | tail -n +{} | awk '{{print $9}}' | \
+         xargs -I {{}} rm -rf /data/web_static/releases/{{}}".format(number + 1))

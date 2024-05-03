@@ -4,5 +4,5 @@
 *.swp
 file.json
 template.html
-*.sql
+*dump.sql
 venv/
