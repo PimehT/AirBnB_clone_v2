@@ -8,24 +8,27 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown_session(exception):
+def teardown_db(exception):
+    """ Teardown app context """
     storage.close()
 
 
-@app.route('/states', strict_slashes=False)
-def list_states():
+@app.route("/states", strict_slashes=False)
+def states():
+    """ States list route """
     states = storage.all(State).values()
-    return render_template('states.html', states=states)
+    sorted_states = sorted(states, key=lambda state: state.name)
+    return render_template('7-states_list.html', states=sorted_states)
 
 
-@app.route('/states/<id>', strict_slashes=False)
-def show_state(id):
-    state = storage.get(State, id)
-    if state:
-        return render_template('state.html', state=state)
-    else:
-        return render_template('not_found.html')
+@app.route("/states/<id>", strict_slashes=False)
+def state(id):
+    """ State route with cities listed """
+    states = storage.all(State).values()
+    for state in states:
+        if state.id == id:
+            return render_template('9-states.html', state=state)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
