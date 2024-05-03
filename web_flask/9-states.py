@@ -28,6 +28,7 @@ def state(id):
     for state in states:
         if state.id == id:
             return render_template('9-states.html', state=state)
+    return render_template('not_found.html')
 
 
 if __name__ == "__main__":
